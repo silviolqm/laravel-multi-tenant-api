@@ -36,8 +36,8 @@ class DatabaseSeeder extends Seeder
                 'email' => 't1test2@test.com',
                 'password' => bcrypt('Password!1'),
             ]);
-            $t1user1->transacoes()->create(TransacaoFactory::new()->make()->toArray());
-            $t1user2->transacoes()->create(TransacaoFactory::new()->make()->toArray());
+            $t1user1->transacoes()->create(TransacaoFactory::new()->make(['user_id' => $t1user1->id])->toArray());
+            $t1user2->transacoes()->create(TransacaoFactory::new()->make(['user_id' => $t1user2->id])->toArray());
         });
 
         //Cria dois usuarios no Tenant2 e duas transacoes para cada um deles
@@ -52,8 +52,8 @@ class DatabaseSeeder extends Seeder
                 'email' => 't2test2@test.com',
                 'password' => bcrypt('Password!1'),
             ]);
-            $t2user1->transacoes()->create(TransacaoFactory::new()->make()->toArray());
-            $t2user2->transacoes()->create(TransacaoFactory::new()->make()->toArray());
+            $t2user1->transacoes()->create(TransacaoFactory::new()->make(['user_id' => $t2user1->id])->toArray());
+            $t2user2->transacoes()->create(TransacaoFactory::new()->make(['user_id' => $t2user2->id])->toArray());
         });
     }
 }
