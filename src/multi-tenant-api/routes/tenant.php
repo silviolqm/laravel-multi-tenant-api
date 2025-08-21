@@ -34,8 +34,7 @@ Route::prefix('api')->group(function () {
         Route::post('/register', [AuthController::class, 'register']);
         Route::post('/login', [AuthController::class, 'login']);
 
-        //Rota de teste para mostrar todas as transacoes. Apenas para facilitar demonstração.
-        Route::get('/testetransacoes', [TransacaoController::class, 'index']);
+        Route::get('/testartransacoes', [TransacaoController::class, 'mostrarTodasTransacoes']);
 
         //Rotas autenticadas
         Route::middleware('auth:sanctum')->group(function () {
@@ -44,6 +43,7 @@ Route::prefix('api')->group(function () {
             });
             Route::post('/logout', [AuthController::class, 'logout']);
 
+            Route::get('/transacoes', [TransacaoController::class, 'index']);
             Route::post('/transacoes', [TransacaoController::class, 'store']);
             Route::get('/transacoes/{id}', [TransacaoController::class, 'show']);
             Route::match(['put', 'patch'], '/transacoes/{id}', [TransacaoController::class, 'update']);

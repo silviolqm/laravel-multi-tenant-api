@@ -10,9 +10,14 @@ use Illuminate\Support\Facades\Storage;
 
 class TransacaoController extends Controller
 {
-    public function index()
-    {
+    public function mostrarTodasTransacoes() {
         return TransacaoResource::collection(Transacao::all());
+    }
+
+    public function index(Request $request)
+    {
+        $transacoes = $request->user()->transacoes;
+        return TransacaoResource::collection($transacoes);
     }
 
     public function store(Request $request)
@@ -30,21 +35,17 @@ class TransacaoController extends Controller
         }
 
         $transacao = $request->user()->transacoes()->create($data);
-
         return new TransacaoResource($transacao);
     }
 
     public function show(Request $request, string $id)
     {
-        //$transacao = $request->user()->transacoes()->findOrFail($id);
         $transacao = Transacao::findOrFail($id);
-
         if ($transacao->user_id !== $request->user()->id) {
             return response()->json([
                 'message' => 'Forbidden'
             ], 403);
         }
-
         return new TransacaoResource($transacao);
     }
 
@@ -57,7 +58,12 @@ class TransacaoController extends Controller
             'status' => ['sometimes', 'required', Rule::in(['Em processamento', 'Aprovada', 'Negada'])],
         ]);
 
-        $transacao = $request->user()->transacoes()->findOrFail($id);
+        $transacao = Transacao::findOrFail($id);
+        if ($transacao->user_id !== $request->user()->id) {
+            return response()->json([
+                'message' => 'Forbidden'
+            ], 403);
+        }
 
         if ($request->hasFile('documento')) {
             //Apaga o arquivo antigo
@@ -80,16 +86,18 @@ class TransacaoController extends Controller
         }
 
         $transacao->update($data);
-
         return new TransacaoResource($transacao);
     }
 
     public function destroy(Request $request, string $id)
     {
-        //$transacao->delete();
-        //$request->user()->transacoes()->delete($transacao);
-        $transacaoToDelete = $request->user()->transacoes()->findOrFail($id);
-        $transacaoToDelete->delete();
+        $transacao = Transacao::findOrFail($id);
+        if ($transacao->user_id !== $request->user()->id) {
+            return response()->json([
+                'message' => 'Forbidden'
+            ], 403);
+        }
+        $transacao->delete();
 
         return response()->noContent();
     }
