@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
 
 
         //Cria dois usuarios no Tenant2 e duas transacoes para cada um deles
-        $tenant1->run(function () {
+        $tenant2->run(function () {
             $t2user1 = User::create([
                 'name' => 'T2user1',
                 'email' => 't2test1@test.com',
