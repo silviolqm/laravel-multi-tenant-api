@@ -36,7 +36,15 @@ class TransacaoController extends Controller
 
     public function show(Request $request, string $id)
     {
-        $transacao = $request->user()->transacoes()->findOrFail($id);
+        //$transacao = $request->user()->transacoes()->findOrFail($id);
+        $transacao = Transacao::findOrFail($id);
+
+        if ($transacao->user_id !== $request->user()->id) {
+            return response()->json([
+                'message' => 'Forbidden'
+            ], 403);
+        }
+
         return new TransacaoResource($transacao);
     }
 
