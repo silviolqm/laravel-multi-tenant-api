@@ -6,6 +6,7 @@ use App\Models\Tenant;
 use App\Models\Transacao;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Factories\TransacaoFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -35,14 +36,9 @@ class DatabaseSeeder extends Seeder
                 'email' => 't1test2@test.com',
                 'password' => bcrypt('Password!1'),
             ]);
-            Transacao::factory(2)->create([
-                'user_id' => $t1user1->id,
-            ]);
-            Transacao::factory(2)->create([
-                'user_id' => $t1user2->id,
-            ]);
+            $t1user1->transacoes()->create(TransacaoFactory::new()->make()->toArray());
+            $t1user2->transacoes()->create(TransacaoFactory::new()->make()->toArray());
         });
-
 
         //Cria dois usuarios no Tenant2 e duas transacoes para cada um deles
         $tenant2->run(function () {
@@ -56,12 +52,8 @@ class DatabaseSeeder extends Seeder
                 'email' => 't2test2@test.com',
                 'password' => bcrypt('Password!1'),
             ]);
-            Transacao::factory(2)->create([
-                'user_id' => $t2user1->id,
-            ]);
-            Transacao::factory(2)->create([
-                'user_id' => $t2user2->id,
-            ]);
+            $t2user1->transacoes()->create(TransacaoFactory::new()->make()->toArray());
+            $t2user2->transacoes()->create(TransacaoFactory::new()->make()->toArray());
         });
     }
 }
