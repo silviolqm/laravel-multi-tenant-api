@@ -7,6 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property-read \App\Models\User|null $user
+ * @method static \Database\Factories\TransacaoFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Transacao newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Transacao newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Transacao onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Transacao query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Transacao withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Transacao withoutTrashed()
+ * @mixin \Eloquent
+ */
 class Transacao extends Model
 {
     use SoftDeletes, HasFactory;
