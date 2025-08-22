@@ -25,15 +25,11 @@ Route::prefix('api')->group(function () {
         InitializeTenancyBySubdomain::class,
         PreventAccessFromCentralDomains::class,
     ])->group(function () {
-        //Rota para retornar o Tenant atual
-        Route::get('/', function () {
-            return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
-        });
-
         //Rotas não-autenticadas para cadastro e login de novos usuarios desse tenant
         Route::post('/register', [AuthController::class, 'register']);
         Route::post('/login', [AuthController::class, 'login']);
 
+        //Rota para testar no Postman mostrando as transacoes de todos os usuarios
         Route::get('/testartransacoes', [TransacaoController::class, 'mostrarTodasTransacoes']);
 
         //Rotas autenticadas
