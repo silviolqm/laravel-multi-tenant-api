@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
         $tenant2 = Tenant::create(['id' => 'tenant2']);
 
         //Cria Domains para os Tenants
-        $tenant1->domains()->create(['domain' => 'tenant1.localhost']);
-        $tenant2->domains()->create(['domain' => 'tenant2.localhost']);
+        $tenant1->domains()->create(['domain' => 'tenant1']);
+        $tenant2->domains()->create(['domain' => 'tenant2']);
 
         //Cria dois usuarios no Tenant1 e duas transacoes para cada um deles
         $tenant1->run(function () {

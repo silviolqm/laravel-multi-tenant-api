@@ -5,7 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TransacaoController;
 use Illuminate\Support\Facades\Route;
-use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
+use Stancl\Tenancy\Middleware\InitializeTenancyBySubdomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 /*
@@ -22,7 +22,7 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 Route::prefix('api')->group(function () {
     Route::middleware([
         'api',
-        InitializeTenancyByDomain::class,
+        InitializeTenancyBySubdomain::class,
         PreventAccessFromCentralDomains::class,
     ])->group(function () {
         //Rota para retornar o Tenant atual

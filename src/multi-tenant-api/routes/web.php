@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+//Rota para registro de Tenants
+/*
 foreach (config('tenancy.central_domains') as $domain) {
     Route::domain($domain)->group(function () {
         // your actual routes
@@ -10,3 +12,4 @@ foreach (config('tenancy.central_domains') as $domain) {
         });
     });
 }
+*/
